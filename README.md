@@ -47,7 +47,7 @@ architectural difference. However, before that there's some foundations to lay
 
 ## The part that's actually a to-do list
 
-- **Implement a buffer type**
+- [ ] **Implement a buffer type**
 
     This is gonna be a dynamic array of lines for easy jumping around. One of
     the mistakes I made in the last attempt was using a linked list which while
@@ -57,7 +57,7 @@ architectural difference. However, before that there's some foundations to lay
     I feel like in reality that isn't going to be a significant enough issue
     to justify the mess of linked lists.
 
-- **Create an RegEx**
+- [ ] **Create an RegEx**
 
     Ok so this one is sorta a stretch goal and definitely some kind of
     masochism, but since watching
