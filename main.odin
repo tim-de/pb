@@ -2,7 +2,6 @@ package main
 
 import "core:fmt"
 import "editor"
-import lua "vendor:lua/5.4"
 
 main :: proc() {
     if !editor.startup() {
@@ -10,4 +9,5 @@ main :: proc() {
         return
     }
     defer editor.cleanup()
+    editor.run()
 }

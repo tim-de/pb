@@ -47,7 +47,7 @@ architectural difference. However, before that there's some foundations to lay
 
 ## The part that's actually a to-do list
 
-- [ ] **Implement a buffer type**
+- [x] **Implement a buffer type**
 
     This is gonna be a dynamic array of lines for easy jumping around. One of
     the mistakes I made in the last attempt was using a linked list which while
@@ -56,6 +56,16 @@ architectural difference. However, before that there's some foundations to lay
     list approach that drew me to it was in inserting lines in the middle, but
     I feel like in reality that isn't going to be a significant enough issue
     to justify the mess of linked lists.
+
+- [ ] **Define commands for moving around in the buffer**
+    
+    Create primitives that change the position in the buffer and matching commands
+    in the lua interface.
+
+- [ ] **Create an actual command parsing function**
+
+    More formally parse the commands and develop some kind of actual syntax for
+    things
 
 - [ ] **Create an RegEx**
 

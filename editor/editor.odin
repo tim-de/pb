@@ -1,20 +1,24 @@
 package editor
 
+import "base:runtime"
 import "core:fmt"
 import buf "buffer"
 import lua "vendor:lua/5.4"
+import el "editline"
 
 Editor :: struct {
     current_buffer: uint,
     mode: Mode,
     buffers: [dynamic]buf.Buffer,
     state: ^lua.State,
+    ctx: runtime.Context,
 }
 
 @(private)
 ed: Editor
 
 startup :: proc() -> (ok: bool) {
+    ed.ctx = context
     ok = true
     ed.buffers = make([dynamic]buf.Buffer)
     ed.state = lua.L_newstate()
@@ -45,10 +49,11 @@ startup :: proc() -> (ok: bool) {
 
 cleanup :: proc() {
     for buffer in ed.buffers {
-        buf.destroy(buffer)
+        buf.destroy(buffer, ed.ctx.allocator)
     }
     delete(ed.buffers)
     lua.close(ed.state)
+    el.uninitialize()
 }
 
 new_buffer :: proc { new_empty_buffer, new_buffers_from_paths }
@@ -90,4 +95,16 @@ close_buffer_at :: proc(ix: uint, force: bool = false) -> bool {
     buf.destroy(ed.buffers[ix])
     ordered_remove(&ed.buffers, ix)
     return true
+}
+
+run :: proc() {
+    if !new_empty_buffer() {
+        fmt.eprintln("Fucked up")
+        return
+    }
+    if lua.getglobal(ed.state, "Pb") != i32(lua.TTABLE) {
+        return
+    }
+    lua.pcall(ed.state, 0, 0, 0)
+    fmt.println(ed.buffers[ed.current_buffer].lines)
 }

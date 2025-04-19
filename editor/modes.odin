@@ -6,7 +6,7 @@ import "core:strings"
 
 import lua "vendor:lua/5.4"
 
-Mode :: enum {
+Mode :: enum i32 {
     Command,
     Insert,
 }

@@ -9,9 +9,9 @@ Buffer :: struct {
     lines: [dynamic]string,
 }
 
-destroy :: proc(buf: Buffer) {
+destroy :: proc(buf: Buffer, allocator := context.allocator) {
     for line in buf.lines {
-        delete(line)
+        delete(line, allocator)
     }
     delete(buf.lines)
 }
