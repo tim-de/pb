@@ -5,6 +5,7 @@ import "core:strings"
 
 Buffer :: struct {
     pos: int,
+    modified: bool,
     lines: [dynamic]string,
 }
 
@@ -21,10 +22,10 @@ new :: proc {
     load_file_from_handle,
 }
 
-init_empty :: proc() -> Buffer {
+init_empty :: proc() -> (buf: Buffer, ok: bool) {
     return Buffer {
         lines = make([dynamic]string)
-    }
+    }, true
 }
 
 load_file_from_buffer :: proc(data: []u8) -> (buf: Buffer, ok: bool) {
